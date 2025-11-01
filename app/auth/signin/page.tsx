@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const signinSchema = z.object({
 
 type SigninForm = z.infer<typeof signinSchema>;
 
-export default function SigninPage() {
+function SigninForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { t } = useLanguage();
@@ -127,6 +127,23 @@ export default function SigninPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SigninPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center px-4 pt-32">
+        <div className="max-w-md w-full bg-white border border-gray-200 rounded-lg shadow-sm p-10">
+          <h1 className="text-4xl font-serif font-normal text-center mb-8 text-black tracking-tight">
+            登录
+          </h1>
+          <div className="animate-pulse">加载中...</div>
+        </div>
+      </div>
+    }>
+      <SigninForm />
+    </Suspense>
   );
 }
 

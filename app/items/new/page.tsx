@@ -5,6 +5,9 @@ import ItemForm from "@/components/ItemForm";
 import Navbar from "@/components/Navbar";
 import NewItemPageHeader from "@/components/NewItemPageHeader";
 
+// 强制动态渲染，避免构建时连接数据库
+export const dynamic = 'force-dynamic';
+
 export default async function NewItemPage() {
   const session = await getServerSession(authOptions);
 

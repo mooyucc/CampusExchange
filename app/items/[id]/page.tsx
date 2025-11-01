@@ -8,6 +8,9 @@ import Navbar from "@/components/Navbar";
 import { ItemDetailBreadcrumb, ItemDetailNotFound, ItemDetailInfo, ItemDetailPublisher, ItemDetailOwnerMessage, ItemDetailLoginPrompt } from "@/components/ItemDetailContent";
 import { ItemDetailTags } from "@/components/ItemDetailTags";
 
+// 强制动态渲染，避免构建时连接数据库
+export const dynamic = 'force-dynamic';
+
 export default async function ItemDetailPage({
   params,
 }: {

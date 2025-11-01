@@ -7,6 +7,9 @@ import ItemsPageHeader from "@/components/ItemsPageHeader";
 import NoItemsMessage from "@/components/NoItemsMessage";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
+// 强制动态渲染，避免构建时连接数据库
+export const dynamic = 'force-dynamic';
+
 interface SearchParams {
   category?: string;
   condition?: string;

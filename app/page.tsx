@@ -4,6 +4,9 @@ import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import HomeContent from "@/components/HomeContent";
 
+// 强制动态渲染，避免构建时连接数据库
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const session = await getServerSession(authOptions);
   const items = await prisma.item.findMany({

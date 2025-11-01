@@ -8,6 +8,9 @@ import Navbar from "@/components/Navbar";
 import DashboardContent from "@/components/DashboardContent";
 import { DashboardSectionHeader, DashboardEmpty } from "@/components/DashboardSection";
 
+// 强制动态渲染，避免构建时连接数据库
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
 

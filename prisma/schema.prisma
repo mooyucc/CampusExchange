@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  grade         String?   // 年级
+  avatar        String?   // 头像URL
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  items         Item[]
+  exchangeRequests ExchangeRequest[] @relation("Requester")
+  receivedRequests ExchangeRequest[] @relation("Receiver")
+}
+
+model Item {
+  id            String    @id @default(cuid())
+  title         String
+  description   String
+  category      String    // 分类：书籍、文具、电子产品、服装、体育用品、其他
+  condition     String    // 物品状态：全新、良好、一般、需修理
+  images        String    // JSON数组存储图片URL
+  status        String    @default("available") // available, pending, completed
+  ownerId       String
+  owner         User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  exchangeRequests ExchangeRequest[]
+}
+
+model ExchangeRequest {
+  id            String    @id @default(cuid())
+  requesterId   String
+  requester     User      @relation("Requester", fields: [requesterId], references: [id], onDelete: Cascade)
+  receiverId    String
+  receiver      User      @relation("Receiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  itemId        String
+  item          Item      @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  message       String?   // 交换请求消息
+  status        String    @default("pending") // pending, accepted, rejected, completed
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+

@@ -8,13 +8,22 @@ import HomeContent from "@/components/HomeContent";
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-  const items = await prisma.item.findMany({
-    where: { status: "available" },
-    include: { owner: true },
-    orderBy: { createdAt: "desc" },
-    take: 12,
-  });
+  let session = null;
+  let items = [];
+
+  try {
+    session = await getServerSession(authOptions);
+    items = await prisma.item.findMany({
+      where: { status: "available" },
+      include: { owner: true },
+      orderBy: { createdAt: "desc" },
+      take: 12,
+    });
+  } catch (error) {
+    console.error("Database error:", error);
+    // 如果数据库连接失败，返回空数组，页面仍然可以显示
+    items = [];
+  }
 
   return (
     <div className="min-h-screen bg-white">

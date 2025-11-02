@@ -3,13 +3,18 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import HomeContent from "@/components/HomeContent";
+import { Prisma } from "@prisma/client";
 
 // 强制动态渲染，避免构建时连接数据库
 export const dynamic = 'force-dynamic';
 
+type ItemWithOwner = Prisma.ItemGetPayload<{
+  include: { owner: true };
+}>;
+
 export default async function Home() {
   let session = null;
-  let items = [];
+  let items: ItemWithOwner[] = [];
 
   try {
     session = await getServerSession(authOptions);

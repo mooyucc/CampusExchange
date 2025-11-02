@@ -31,7 +31,7 @@ export const translations = {
       promotion: "🎉 新用户注册即送100积分，首单再享9折优惠！立即加入，开启你的交换之旅 🎉",
     },
     footer: {
-      copyright: "© 2024 校园交换平台 - 让物品流动起来",
+      copyright: "© 2025 校园交换平台 - 让物品流动起来",
     },
     common: {
       loading: "加载中...",
@@ -213,7 +213,7 @@ export const translations = {
       promotion: "🎉 New users get 100 points upon registration, enjoy 10% off your first order! Join now and start your exchange journey 🎉",
     },
     footer: {
-      copyright: "© 2024 Campus Exchange Platform - Let items flow",
+      copyright: "© 2025 Campus Exchange Platform - Let items flow",
     },
     common: {
       loading: "Loading...",
